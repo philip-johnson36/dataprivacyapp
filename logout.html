@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <title>Logout Successful</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding: 40px;
+    }
+    
+    h1 {
+      color: #333;
+    }
+    
+    p {
+      color: #666;
+    }
+  </style>
+</head>
+<body>
+  <h1>Logout Successful</h1>
+  <p>You have been logged out successfully. Thank you for using our website.</p>
+  <script>
+    sessionStorage.removeItem('auth_token');
+  </script>
+  <a href = "index.html">Back to login</a>
+</body>
+</html>

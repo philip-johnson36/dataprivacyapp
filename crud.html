@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang = "en">
+<head>
+  <link rel="shortcut icon" href="/../favicon-32x32.png" type="image/x-icon">
+  <title>Raw Data View</title>
+    <script src="https://cdn.zinggrid.com/zinggrid.min.js" defer></script>
+</head>
+<body>
+    <zing-grid editor
+    pager
+  page-size="15"
+    caption="CRUD table">
+    <zg-button action="createrecord"></zg-button>
+    <!-- <zg-data id="zg-d"> -->
+    <zg-data id="zg.d" src="https://cse151bgaming.online/api/dashboard">
+      <!-- <zg-param id="zg-headers" name="headers" value='{"auth_token": fake}'></zg-param> -->
+      <zg-param id = "zg-headers" name="headers" value='{"auth_token": "token asdf"}'></zg-param>
+    </zg-data>
+    <zg-colgroup>
+      <zg-column index="id"></zg-column>
+      <zg-column index="username"></zg-column>
+      <zg-column index="email"></zg-column>
+      <zg-column index="passwordHash"></zg-column>
+      <zg-column index="admin"></zg-column>
+      <zg-column type="remover"></zg-column>
+        
+    </zg-colgroup>
+  </zing-grid>
+
+  <script>
+    window.onload = function(){
+      document.getElementById("zg-headers").setAttribute("value", '{"auth_token" : "' + sessionStorage.getItem("auth_token") +'"}')
+      // console.log("loaded")
+      
+      // window.setTimeout(() => document.querySelector('zing-grid').refresh(), 5000)
+      // zp = document.createElement("zg-param");
+      // zp.setAttribute("name", "headers")
+      // zp.setAttribute("value", '{"auth_token" : "' + sessionStorage.getItem("auth_token") +'"}')
+      // document.getElementById("zg.d").appendChild(zp);
+    }
+      
+    // document.getElementById("zg-d").ser = "{'auth_token': "+ sessionStorage.getItem("auth_token") +"}"
+    // const handleUpdate = (event) => {
+    //   console.log(event)
+    //   const { rowIndex, columnIndex, data, newValue, fieldIndex } = event.detail.ZGData;
+    //   console.log(rowIndex, columnIndex, data, newValue)
+    //   console.log(`Updated row: ${rowIndex}, col: ${columnIndex}`);
+    //   console.log(`Old value: ${data[fieldIndex]}, New value: ${newValue}`);
+    // };
+
+    const handleDelete = (event) => {
+      console.log(event)
+    //   const { id, username, email, passwordHash } = event.detail.ZGData.data;
+      console.log(`Deleted row: ${event.detail.ZGData.data}`);
+    };
+
+    const handleCreate = (event) => {
+        const grid = document.querySelector('zing-grid');
+        console.log("refreshing")
+        grid.refresh()
+    }
+
+    const grid = document.querySelector('zing-grid');
+    // grid.addEventListener('cell:closeedit', handleUpdate);
+    grid.addEventListener('data:record:delete', handleDelete);
+    // grid.addEventListener('data:record:add', handleCreate);
+
+    var reloaded = false;
+    const zgRef = document.querySelector('zing-grid');
+    zgRef.addEventListener('data:load', function(e) {
+      console.log('--- (data:load) event fired ---', e);
+      if(!reloaded){
+        zgRef.refresh();
+        reloaded = true;
+      }
+    });
+
+
+  </script>
+  
+</body>
+</html>

@@ -1,0 +1,331 @@
+<head>
+  <script nonce="undefined" src="https://cdn.zingchart.com/zingchart.min.js"></script>
+  <style>
+
+    #container {
+      display: flex;
+      flex-direction: row;
+    }
+    #myChart {
+      width: 100%;
+      height: 100%;
+      min-height: 500px;
+    }
+    
+    #myChart2 {
+      width: 100%;
+      height: 100%;
+      min-height: 500px;
+    }
+
+    .heatmap {
+      outline: 5px solid black;
+      margin: 15px
+    }
+    .heatmap2 {
+      outline: 5px solid black;
+      margin: 15px
+    }
+  </style>
+  </head>
+
+<body>
+  <div id='container'>
+  <div id='myChart'><a class="zc-ref" href="https://www.zingchart.com/">Charts by ZingChart</a></div>
+  <div id='myChart2'><a class="zc-ref" href="https://www.zingchart.com/">Charts by ZingChart</a></div>
+  </div>
+  <script>
+
+  fetch('https://cse151bgaming.online/api/activity/mouseData')
+    .then(response => response.json())
+    .then(data => {
+      // Process the response data
+      
+    var total = 0;
+    var movement = 0;
+    var click = 0;
+    var scroll = 0
+
+    var total2 = 0;
+    var movement2 = 0;
+    var click2  = 0;
+    var scroll2 = 0
+    for (let i = 0; i < data.length; i++) {
+      if (data[i].page_name == "The Not Cool Kids") {
+        total++;
+
+        if (data[i].mouse_event_type == "Movement") {
+          movement++;
+        }
+        else if (data[i].mouse_event_type == "Click") {
+          click++;
+        }
+        else {
+          scroll++;
+        }
+      }
+      else if (data[i].page_name == "Data Visualization") {
+        total2++;
+
+        if (data[i].mouse_event_type == "Movement") {
+          movement2++;
+        }
+        else if (data[i].mouse_event_type == "Click") {
+          click2++;
+        }
+        else {
+          scroll2++;
+        }
+      }
+    }
+
+      ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "b55b025e438fa8a98e32482b5f768ff5"];
+    var myConfig = {
+      type: "pie",
+      plot: {
+        borderColor: "#2B313B",
+        borderWidth: 5,
+        // slice: 90,
+        valueBox: {
+          placement: 'out',
+          text: '%t\n%npv%',
+          fontFamily: "Open Sans"
+        },
+        tooltip: {
+          fontSize: '18',
+          fontFamily: "Open Sans",
+          padding: "5 10",
+          text: "%npv%"
+        },
+        animation: {
+          effect: 2,
+          method: 5,
+          speed: 700,
+          sequence: 1,
+          delay: 1000
+        }
+      },
+      source: {
+        text: 'gs.statcounter.com',
+        fontColor: "#8e99a9",
+        fontFamily: "Open Sans"
+      },
+      title: {
+        fontColor: "#8e99a9",
+        text: 'Mouse Activity on Homepage',
+        align: "center",
+        offsetX: 10,
+        fontFamily: "Open Sans",
+        fontSize: 25
+      },
+      subtitle: {
+        offsetX: 10,
+        offsetY: 10,
+        fontColor: "#8e99a9",
+        fontFamily: "Open Sans",
+        fontSize: "16",
+        // text: 'May 2016',
+        align: "left"
+      },
+      plotarea: {
+        margin: "20 0 0 0"
+      },
+      series: [
+        {
+          values: [click / total],
+          text: "Click",
+          backgroundColor: '#FF7965',
+        },
+        {
+          values: [movement / total],
+          text: 'Movement',
+          backgroundColor: '#FFCB45',
+        },
+        {
+          values: [scroll / total],
+          text: 'Scroll',
+          backgroundColor: '#50208B',
+        }
+      ]
+    };
+ 
+    zingchart.render({
+      id: 'myChart',
+      data: myConfig,
+      height: '80%',
+      width: '80%'
+    });
+
+
+    ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "b55b025e438fa8a98e32482b5f768ff5"];
+    var myConfig2 = {
+      type: "pie",
+      plot: {
+        borderColor: "#2B313B",
+        borderWidth: 5,
+        // slice: 90,
+        valueBox: {
+          placement: 'out',
+          text: '%t\n%npv%',
+          fontFamily: "Open Sans"
+        },
+        tooltip: {
+          fontSize: '18',
+          fontFamily: "Open Sans",
+          padding: "5 10",
+          text: "%npv%"
+        },
+        animation: {
+          effect: 2,
+          method: 5,
+          speed: 700,
+          sequence: 1,
+          delay: 1000
+        }
+      },
+      source: {
+        text: 'gs.statcounter.com',
+        fontColor: "#8e99a9",
+        fontFamily: "Open Sans"
+      },
+      title: {
+        fontColor: "#8e99a9",
+        text: 'Mouse Activity on Data Viz page',
+        align: "center",
+        offsetX: 10,
+        fontFamily: "Open Sans",
+        fontSize: 25
+      },
+      subtitle: {
+        offsetX: 10,
+        offsetY: 10,
+        fontColor: "#8e99a9",
+        fontFamily: "Open Sans",
+        fontSize: "16",
+        // text: 'May 2016',
+        align: "left"
+      },
+      plotarea: {
+        margin: "20 0 0 0"
+      },
+      series: [
+        {
+          values: [click2 / total],
+          text: "Click",
+          backgroundColor: '#FF7965',
+        },
+        {
+          values: [movement2 / total],
+          text: 'Movement',
+          backgroundColor: '#FFCB45',
+        },
+        {
+          values: [scroll2 / total],
+          text: 'Scroll',
+          backgroundColor: '#50208B',
+        }
+      ]
+    };
+ 
+    zingchart.render({
+      id: 'myChart2',
+      data: myConfig2,
+      height: '80%',
+      width: '80%'
+    });
+
+
+    })
+    .catch(error => {
+      // Handle any errors
+      console.error(error);
+    });
+    </script>
+    <p> <center> Heat Map of Mouse Movements For One User Session on Homepage </center></p>
+     <div class = 'heatmap' style = 'position: relative'>
+        <canvas class="heatmap-canvas" width="500" height="500"></canvas>
+     </div>
+     <p><center>Heat Map of Mouse Movements For One User Session on Data Viz page</center></p>
+
+     <div class = 'heatmap2' style = 'position: relative'>
+      <canvas class="heatmap-canvas" width="500" height="500"></canvas>
+    </div>
+
+
+     <script src="../heatmap.js-master/heatmap.js-master/build/heatmap.min.js"></script>
+
+     <script>
+        fetch('https://cse151bgaming.online/api/activity/mouseData')
+      .then(response => response.json())
+      .then(mouseData => {
+        var pointsMovement = [];
+        var pointsClick = [];
+
+        var max = 0;
+        var width = 800;
+        var height = 600;
+        console.log(mouseData)
+
+        var maxX = 1200
+        var maxY = 1000
+        // for (let i = 0; i < mouseData.length; i++) {
+        //     maxX = Math.max(mouseData[i].coord_x, maxX)
+        //     maxY = Math.max(mouseData[i].coord_y, maxY)
+
+        // }
+
+        console.log(maxX)
+        console.log(maxY)
+        for (let i = 0; i < mouseData.length; i++) {
+            entry = mouseData[i]
+            pageX = entry.coord_x
+            pageY = entry.coord_y
+            if (entry.mouse_event_type == "Movement" && entry.session_id == "F20lD2-IZs3WYIEun5Utt_ZLpSTl8I6z") {
+                var point = {
+                    x: Math.floor(pageX * (width / maxX)), 
+                    y: Math.floor(pageY * (height / maxY)),
+                    value: .1,
+                    // radius configuration on a point basis
+                    radius: 3
+                };
+                pointsMovement.push(point);
+            } 
+            else if (entry.mouse_event_type == "Movement" && entry.session_id == "nhtXCS8BtOFqRYepIiZw3HHJvCuHlb7i") {
+              var point = {
+                    x: Math.floor(pageX * (width / maxX)), 
+                    y: Math.floor(pageY * (height / maxY)),
+                    value: .1,
+                    // radius configuration on a point basis
+                    radius: 3
+                };
+                pointsClick.push(point);
+            }
+        }
+
+        var data1 = { max: max, data: pointsMovement };
+        var data2 = { max: max, data: pointsClick };
+
+        console.log(data2)
+
+          var heatmapInstance = h337.create({
+            container: document.querySelector('.heatmap')
+          });
+          heatmapInstance.setData(data1);
+
+          var heatmapInstance2 = h337.create({
+            container: document.querySelector('.heatmap2')
+          });
+          heatmapInstance2.setData(data2);
+
+        })
+        </script>
+
+
+<h3>
+  
+How does the mouse activity on the home page differ from the mouse activity on the hellodataviz page?
+</h3>
+<p>
+From the pi charts, we can gather that there is a lot more scrolling on the hellodataviz.html. This is likely due to the fact that the 3 zinggrids take up more than a page, so to view them all, scrolling needs to be done. We were interested in the actual path of the mouse on different pages, so we took 2 samples of mouse movements for user sessions on the homepage versus the data viz page. It appears that the sample user on the homepage found an object of interest in the bottom left of the screen (which is where the hellodataviz.html and database.html links are located) because the mouse movements slow down and stop around there, and then the mouse takes an entirely different direction after hovering on it. The sample on the hellodataviz showed mouse movement that was more horizontal. we believe this is because 2 of the charts have hover components which work left to right. There didn't seem to be one particular point of interest. One more point of interest is that the mouse movements seem to be closer apart on the data viz page than the homepage, indicating the mouse was moving more slowly (perhaps because of these hover components, the user taking time to read the information the hover gave them).
+</p>
+    </body>

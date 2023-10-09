@@ -1,0 +1,696 @@
+<!DOCTYPE html>
+<html>
+ 
+<head>
+  <meta charset="utf-8">
+  <title>Data Visualization</title>
+  <link rel="shortcut icon" href="/../favicon-32x32.png" type="image/x-icon">
+
+  <script nonce="undefined" src="https://cdn.zingchart.com/zingchart.min.js"></script>
+  <style>
+    @import 'https://fonts.googleapis.com/css?family=Open+Sans';
+ 
+    html,
+    body {
+      width: 100%;
+      height: 100%;
+    }
+ 
+    #myChart {
+      width: 100%;
+      height: 100%;
+      min-height: 500px;
+    }
+ 
+    .zc-ref {
+      display: none;
+    }
+    .button {
+      position: absolute;
+      right: 20px;
+      padding: 10px;
+    }
+
+    #logout {
+      top: 20px;
+    }
+
+    #detailed-report {
+      top: 50%;
+      transform: translateY(-50%);
+    }
+
+    #user-management {
+      bottom: 20px;
+    }
+
+  </style>
+</head>
+ 
+<body>
+  <div id='myChart'><a class="zc-ref" href="https://www.zingchart.com/">Charts by ZingChart</a></div>
+  <script>
+
+  fetch('https://cse151bgaming.online/api/activity/mouseData')
+    .then(response => response.json())
+    .then(data => {
+      // Process the response data
+      
+    var total = 0;
+    var notcool = 0;
+    var datavis = 0;
+    var rawdata = 0;
+    var unknown = 0;
+    for (let i = 0; i < data.length; i++) {
+      total++;
+      if (data[i].page_name.includes("Raw")) {
+        rawdata++;
+      }
+      else if (data[i].page_name.includes("Data Vis")) {
+        datavis++;
+      }
+      else if (data[i].page_name.includes("Not Cool")) {
+        notcool++;
+      }
+      else {
+        unknown++;
+      }
+    }
+
+      ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "b55b025e438fa8a98e32482b5f768ff5"];
+    var myConfig = {
+      type: "pie",
+      plot: {
+        borderColor: "#2B313B",
+        borderWidth: 5,
+        // slice: 90,
+        valueBox: {
+          placement: 'out',
+          text: '%t\n%npv%',
+          fontFamily: "Open Sans"
+        },
+        tooltip: {
+          fontSize: '18',
+          fontFamily: "Open Sans",
+          padding: "5 10",
+          text: "%npv%"
+        },
+        animation: {
+          effect: 2,
+          method: 5,
+          speed: 700,
+          sequence: 1,
+          delay: 1000
+        }
+      },
+      source: {
+        text: 'gs.statcounter.com',
+        fontColor: "#8e99a9",
+        fontFamily: "Open Sans"
+      },
+      title: {
+        fontColor: "#8e99a9",
+        text: 'Mouse Activity By Page',
+        align: "center",
+        offsetX: 10,
+        fontFamily: "Open Sans",
+        fontSize: 25
+      },
+      subtitle: {
+        offsetX: 10,
+        offsetY: 10,
+        fontColor: "#8e99a9",
+        fontFamily: "Open Sans",
+        fontSize: "16",
+        // text: 'May 2016',
+        align: "left"
+      },
+      plotarea: {
+        margin: "20 0 0 0"
+      },
+      series: [
+        {
+          values: [unknown / total],
+          text: "Other",
+          backgroundColor: '#FF7965',
+        },
+        {
+          values: [notcool / total],
+          text: 'Home Page',
+          backgroundColor: '#FFCB45',
+        },
+        {
+          text: 'Raw Data',
+          values: [rawdata / total],
+          backgroundColor: '#6FB07F'
+        },
+        {
+          text: 'Data Visualization',
+          values: [datavis / total],
+          backgroundColor: '#FFB07F'
+        }
+      ]
+    };
+ 
+    zingchart.render({
+      id: 'myChart69',
+      data: myConfig,
+      height: '80%',
+      width: '80%'
+    });
+
+
+    })
+    .catch(error => {
+      // Handle any errors
+      console.error(error);
+    });
+
+    </script>
+    <div id='myChart69'><a class="zc-ref" href="https://www.zingchart.com/">Charts by ZingChart</a></div>
+    <script>
+        fetch('https://cse151bgaming.online/api/activity/mouseData')
+    .then(response => response.json())
+    .then(data => {
+      // Process the response data
+      
+    var total = 0;
+    var movement = 0;
+    var scroll = 0;
+    var click = 0;
+    for (let i = 0; i < data.length; i++) {
+      total++;
+      if (data[i].mouse_event_type == "Movement") {
+        movement++;
+      }
+      else if (data[i].mouse_event_type == "Scroll") {
+        scroll++;
+      }
+      else {
+        click++;
+      }
+    }
+
+      ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "b55b025e438fa8a98e32482b5f768ff5"];
+    var myConfig = {
+      type: "pie",
+      plot: {
+        borderColor: "#2B313B",
+        borderWidth: 5,
+        // slice: 90,
+        valueBox: {
+          placement: 'out',
+          text: '%t\n%npv%',
+          fontFamily: "Open Sans"
+        },
+        tooltip: {
+          fontSize: '18',
+          fontFamily: "Open Sans",
+          padding: "5 10",
+          text: "%npv%"
+        },
+        animation: {
+          effect: 2,
+          method: 5,
+          speed: 700,
+          sequence: 1,
+          delay: 1000
+        }
+      },
+      source: {
+        text: 'gs.statcounter.com',
+        fontColor: "#8e99a9",
+        fontFamily: "Open Sans"
+      },
+      title: {
+        fontColor: "#8e99a9",
+        text: 'Mouse Activity By Type',
+        align: "center",
+        offsetX: 10,
+        fontFamily: "Open Sans",
+        fontSize: 25
+      },
+      subtitle: {
+        offsetX: 10,
+        offsetY: 10,
+        fontColor: "#8e99a9",
+        fontFamily: "Open Sans",
+        fontSize: "16",
+        // text: 'May 2016',
+        align: "left"
+      },
+      plotarea: {
+        margin: "20 0 0 0"
+      },
+      series: [
+        {
+          values: [click / total],
+          text: "Click",
+          backgroundColor: '#FF7965',
+        },
+        {
+          values: [movement / total],
+          text: 'Movement',
+          backgroundColor: '#FFCB45',
+        },
+        {
+          text: 'Scroll',
+          values: [scroll / total],
+          backgroundColor: '#6FB07F'
+        }
+      ]
+    };
+ 
+    zingchart.render({
+      id: 'myChart',
+      data: myConfig,
+      height: '80%',
+      width: '80%'
+    });
+
+
+    })
+    .catch(error => {
+      // Handle any errors
+      console.error(error);
+    });
+    </script>
+    <div id='myChart2'><a class="zc-ref" href="https://www.zingchart.com/">Charts by ZingChart</a></div>
+    <script>
+
+    fetch('https://cse151bgaming.online/api/activity/pageData')
+      .then(response => response.json())
+      .then(pageData => {
+          fetch('https://cse151bgaming.online/api/activity/idleData')
+          .then(response => response.json())
+          .then(idleData => {
+
+            //24 arrays each
+
+            pageArray = []
+            shortIdleArray = []
+            longIdleArray = []
+
+            for (var i = 0; i < 24; i++) {
+              pageArray.push(0);
+              shortIdleArray.push(0);
+              longIdleArray.push(0);
+            }
+
+            for (var i = 0; i < pageData.length; i++) {
+              var diff = Math.floor(Math.abs(new Date() - new Date(pageData[i].time_value))/1000/60/60);
+              if (diff >= 0 && diff < 24) {
+                diff = diff
+                if (pageData[i].page_event_type == 'Entering') {
+                  pageArray[diff]++;
+                }
+              }
+            }
+
+            for (var i = 0; i < idleData.length; i++) {
+              var diff = Math.floor(Math.abs(new Date() - new Date(idleData[i].break_end))/1000/60/60);
+              if (diff >= 0 && diff < 24) {
+                diff = diff
+                if (idleData[i].break_length < 10000) {
+                  shortIdleArray[diff]++;
+                }
+                else {
+                  longIdleArray[diff]++;
+                }
+              }
+            }
+
+            
+
+
+        ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "b55b025e438fa8a98e32482b5f768ff5"];
+    var lineChartConfig = {
+      "type": "line",
+      "utc": true,
+      "title": {
+        "text": "Activity Over Last 24 Hours",
+        "font-size": "24px",
+        "adjust-layout": true
+      },
+      "plotarea": {
+        "margin": "dynamic 45 60 dynamic",
+      },
+      "legend": {
+        "layout": "float",
+        "background-color": "none",
+        "border-width": 0,
+        "shadow": 0,
+        "align": "center",
+        "adjust-layout": true,
+        "toggle-action": "remove",
+        "item": {
+          "padding": 7,
+          "marginRight": 17,
+          "cursor": "hand"
+        }
+      },
+      "scale-x": {
+        // "min-value": 1383292800000,
+        "shadow": 0,
+        "step": 1,
+        // "transform": {
+        //   "type": "date",
+        //   "all": "%D, %d %M<br />%h:%i %A",
+        //   "item": {
+        //     "visible": false
+        //   }
+        // },
+        "label": {
+          "visible": true,
+          "text": "Hours Ago"
+        },
+        "minor-ticks": 0
+      },
+      "scale-y": {
+        "line-color": "#f6f7f8",
+        "shadow": 0,
+        "guide": {
+          "line-style": "dashed"
+        },
+        "label": {
+          "text": "Page Views",
+        },
+        "minor-ticks": 0,
+        "thousands-separator": ","
+      },
+      "crosshair-x": {
+        "line-color": "#efefef",
+        "plot-label": {
+          "border-radius": "5px",
+          "border-width": "1px",
+          "border-color": "#f6f7f8",
+          "padding": "10px",
+          "font-weight": "bold"
+        },
+        "scale-label": {
+          "font-color": "#000",
+          "background-color": "#f6f7f8",
+          "border-radius": "5px"
+        }
+      },
+      "tooltip": {
+        "visible": false
+      },
+      "plot": {
+        "highlight": true,
+        "tooltip-text": "%t views: %v<br>%k",
+        "shadow": 0,
+        "line-width": "2px",
+        "marker": {
+          "type": "circle",
+          "size": 3
+        },
+        "highlight-state": {
+          "line-width": 3
+        },
+        "animation": {
+          "effect": 1,
+          "sequence": 2,
+          "speed": 100,
+        }
+      },
+      "series": [{
+          "values": pageArray,
+          "text": "Unique Sessions",
+          "line-color": "#007790",
+          "legend-item": {
+            "background-color": "#007790",
+            "borderRadius": 5,
+            "font-color": "white"
+          },
+          "legend-marker": {
+            "visible": false
+          },
+          "marker": {
+            "background-color": "#007790",
+            "border-width": 1,
+            "shadow": 0,
+            "border-color": "#69dbf1"
+          },
+          "highlight-marker": {
+            "size": 6,
+            "background-color": "#007790",
+          }
+        },
+        {
+          "values": shortIdleArray,
+          "text": "Short Idles",
+          "line-color": "#009872",
+          "legend-item": {
+            "background-color": "#009872",
+            "borderRadius": 5,
+            "font-color": "white"
+          },
+          "legend-marker": {
+            "visible": false
+          },
+          "marker": {
+            "background-color": "#009872",
+            "border-width": 1,
+            "shadow": 0,
+            "border-color": "#69f2d0"
+          },
+          "highlight-marker": {
+            "size": 6,
+            "background-color": "#009872",
+          }
+        },
+        {
+          "values": longIdleArray,
+          "text": "Long Idles",
+          "line-color": "#da534d",
+          "legend-item": {
+            "background-color": "#da534d",
+            "borderRadius": 5,
+            "font-color": "white"
+          },
+          "legend-marker": {
+            "visible": false
+          },
+          "marker": {
+            "background-color": "#da534d",
+            "border-width": 1,
+            "shadow": 0,
+            "border-color": "#faa39f"
+          },
+          "highlight-marker": {
+            "size": 6,
+            "background-color": "#da534d",
+          }
+        }
+      ]
+    };
+ 
+    zingchart.render({
+      id: 'myChart2',
+      data: lineChartConfig,
+      height: '80%',
+      width: '80%'
+    });
+
+
+      })
+      .catch(error => {
+    // Handle any errors
+    console.error(error);
+  });
+        })
+      .catch(error => {
+    // Handle any errors
+    console.error(error);
+  });
+    
+  </script>
+    <div id='myChart3'><a class="zc-ref" href="https://www.zingchart.com/">Charts by ZingChart</a></div>
+    <script>
+
+fetch('https://cse151bgaming.online/api/activity/idleData')
+  .then(response => response.json())
+  .then(idleData => {
+
+            shortIdleArray = []
+            longIdleArray = []
+
+            for (var i = 0; i < 4; i++) {
+              shortIdleArray.push(0);
+              longIdleArray.push(0);
+            }
+            for (var i = 0; i < idleData.length; i++) {
+              var diff = Math.floor(Math.abs(new Date() - new Date(idleData[i].break_end))/1000/60/60/24);
+              if (diff >= 0 && diff < 4) {
+                if (idleData[i].break_length < 10000) {
+                  shortIdleArray[diff]++;
+                }
+                else {
+                  longIdleArray[diff]++;
+                }
+              }
+            }
+
+    ZC.LICENSE = ["569d52cefae586f634c54f86dc99e6a9", "b55b025e438fa8a98e32482b5f768ff5"];
+    var myConfig = {
+      "graphset": [{
+        "type": "bar",
+        "background-color": "white",
+        "title": {
+          "text": "Idle Activity Over Last 4 Days",
+          "font-color": "#7E7E7E",
+          "backgroundColor": "none",
+          "font-size": "22px",
+          "alpha": 1,
+          "adjust-layout": true,
+        },
+        "plotarea": {
+          "margin": "dynamic"
+        },
+        "legend": {
+          "layout": "x3",
+          "overflow": "page",
+          "alpha": 0.05,
+          "shadow": false,
+          "align": "center",
+          "adjust-layout": true,
+          "marker": {
+            "type": "circle",
+            "border-color": "none",
+            "size": "10px"
+          },
+          "border-width": 0,
+          "maxItems": 3,
+          "toggle-action": "hide",
+          "pageOn": {
+            "backgroundColor": "#000",
+            "size": "10px",
+            "alpha": 0.65
+          },
+          "pageOff": {
+            "backgroundColor": "#7E7E7E",
+            "size": "10px",
+            "alpha": 0.65
+          },
+          "pageStatus": {
+            "color": "black"
+          }
+        },
+        "plot": {
+          "bars-space-left": 0.15,
+          "bars-space-right": 0.15,
+          "animation": {
+            "effect": "ANIMATION_SLIDE_BOTTOM",
+            "sequence": 0,
+            "speed": 800,
+            "delay": 800
+          }
+        },
+        "scale-y": {
+          "line-color": "#7E7E7E",
+          "item": {
+            "font-color": "#7e7e7e"
+          },
+          "values": "0:60:10",
+          "guide": {
+            "visible": true
+          },
+          "label": {
+            "text": "Count",
+            "font-family": "arial",
+            "bold": true,
+            "font-size": "14px",
+            "font-color": "#7E7E7E",
+          },
+        },
+        "scaleX": {
+          "values": [
+            // "3 Days Ago",
+            // "2 Days Ago",
+            // "1 Day Ago",
+            // "Today"
+            "Today",
+            "1 Day Ago",
+            "2 Days Ago",
+            "3 Days Ago"
+          ],
+          "placement": "default",
+          "tick": {
+            "size": 58,
+            "placement": "cross"
+          },
+          "itemsOverlap": true,
+          "item": {
+            "offsetY": -55
+          }
+        },
+        // "scaleX2": {
+        //   "values": ["2013", "2014"],
+        //   "placement": "default",
+        //   "tick": {
+        //     "size": 20,
+        //   },
+        //   "item": {
+        //     "offsetY": -15
+        //   }
+        // },
+        "tooltip": {
+          "visible": false
+        },
+        "crosshair-x": {
+          "line-width": "100%",
+          "alpha": 0.18,
+          "plot-label": {
+            "header-text": "%kv"
+          }
+        },
+        "series": [
+          {
+            "values": shortIdleArray,
+            "borderRadiusTopLeft": 7,
+            "alpha": 0.95,
+            "background-color": "blue",
+            "text": "Short Idles (<= 10 seconds)"
+          },
+          {
+            "values": longIdleArray,
+            "borderRadiusTopLeft": 7,
+            "alpha": 0.95,
+            "background-color": "green",
+            "text": "Long Idles (> 10 seconds)"
+          }
+        ]
+      }]
+    };
+ 
+    zingchart.render({
+      id: 'myChart3',
+      data: myConfig,
+      height: '80%',
+      width: '80%'
+    });
+
+    
+
+  })
+  .catch(error => {
+    // Handle any errors
+    console.error(error);
+  });
+    
+    </script>
+
+<!-- <script>
+sessionStorage.setItem('auth_token', data.token);
+</script> -->
+
+<!-- <script> -->
+  
+</script>
+     <a href="../logout.html" class="button" id="logout">Logout</a>
+     <a href="../mousedata.html" class="button" id="detailed-report">Mouse Data Detailed Report</a>
+     <a href="../crud.html" class="button" id="user-management">User Management</a>
+</body>
+ 
+</html>
